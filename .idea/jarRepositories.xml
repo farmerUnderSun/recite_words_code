@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nccloud-all-mvn-virtual" />
+      <option name="name" value="nccloud-all-mvn-virtual" />
+      <option name="url" value="https://repo.yyrd.com/artifactory/nccloud-all-mvn-virtual" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nccloud-releases" />
+      <option name="name" value="nccloud-releases" />
+      <option name="url" value="https://repo.yyrd.com/artifactory/YonyouCloud-Release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nccloud-snapshots" />
+      <option name="name" value="nnccloud-snapshots" />
+      <option name="url" value="https://repo.yyrd.com/artifactory/YonyouCloud-Snapshot" />
+    </remote-repository>
+  </component>
+</project>
