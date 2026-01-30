@@ -10,7 +10,9 @@ import java.util.*;
 
 public class Main {
     private static final String BASE_PATH = "/Users/yanghuijun/CProjects/recite_words";
-    private static final int USE_FILE_COUNT = 20;
+    private static final int USED_FILE_COUNT_OF_RANDOM = 10;
+    private static final int USED_FILE_COUNT_OF_FIX = 5;
+
     public static void main(String[] args) {
         File basePathFile = new File(BASE_PATH);
         if (!basePathFile.isDirectory()) {
@@ -20,17 +22,47 @@ public class Main {
         if (files == null) {
             return;
         }
-        int fileTotalCount = 0;
+        List<File> usedFiles = new ArrayList<>();
+        // 过滤掉不符合规范名称的文件
+        List<File> validFiles = new ArrayList<>();
         for (File file : files) {
             if (!targetFileName(file.getName())) {
                 continue;
             }
-            fileTotalCount++;
+            validFiles.add(file);
         }
-        List<Integer> randomNumbersInRange = NumberUtils.getRandomNumbersInRange(1, fileTotalCount, USE_FILE_COUNT);
+        // 按照时间从小到大排序
+        for (int i = validFiles.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < i; j++) {
+                File leftFile = validFiles.get(j);
+                File rightFile = validFiles.get(j + 1);
+                String leftFileName = leftFile.getName();
+                String rightFileName = rightFile.getName();
+                int timeInLeftFileName = Integer.parseInt(leftFileName.substring(5, 12));
+                int timeInRightFileName = Integer.parseInt(rightFileName.substring(5, 12));
+                if (timeInLeftFileName > timeInRightFileName) {
+                    File temp = leftFile;
+                    validFiles.set(j, rightFile);
+                    validFiles.set(j + 1, temp);
+                }
+            }
+        }
+        // 取出最新的几个
+        int originalValidFileListSize = validFiles.size();
+        for (int i = 1; i <= USED_FILE_COUNT_OF_FIX; i++) {
+            int index = originalValidFileListSize - i;
+            if (index < 0) {
+                break;
+            }
+            File removed = validFiles.remove(index);
+            System.out.println("***用到的文件:" + removed.getName());
+            usedFiles.add(removed);
+        }
+        System.out.println();
+        // 随机取出几个
+        List<Integer> randomNumbersInRange = NumberUtils.getRandomNumbersInRange(1, validFiles.size(), USED_FILE_COUNT_OF_RANDOM);
         int i = 0;
-        List<File> usedFiles = new ArrayList<>();
-        for (File file : files) {
+        for (File file : validFiles) {
             if (!targetFileName(file.getName())) {
                 continue;
             }
@@ -85,37 +117,12 @@ public class Main {
                 System.err.println("请求异常: " + e.getMessage());
             }
         });
-
-        // 等待响应完成
-        try {
-            Thread.sleep(30000); // 根据实际情况调整
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-//        try (Response response = client.newCall(request).execute()) {
-//            if (response.isSuccessful()) {
-//                String responseBody = response.body().string();
-//                Map map = ObjectMapperUtils.jsonToObject(responseBody, Map.class);
-//                Object object = MapUtils.get(map, "choices");
-//                if (object instanceof List<?>) {
-//                    List list = (List) object;
-//                    Object object1 = list.get(0);
-//                    if (object1 instanceof Map<?, ?>) {
-//                        Map map1 = (Map) object1;
-//                        Object message = map1.get("message");
-//                        if (message instanceof Map<?, ?>) {
-//                            Map messageMap = (Map) message;
-//                            Object content = messageMap.get("content");
-//                            System.out.println(content);
-//                        }
-//                    }
-//                }
-//            } else {
-//                System.out.println("请求失败，状态码：" + response.code());
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
+//
+//        // 等待响应完成
+//        try {
+//            Thread.sleep(30000); // 根据实际情况调整
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
 //        }
     }
 
@@ -165,9 +172,12 @@ public class Main {
     }
 
     private static Map<String, Object> equipRequestBodyMessage(String words) {
+        String content = "请用一下单词、短语等信息编写一个小故事，500字左右。要求：用英文编写，语句通顺， 语法准确，尽量少用不在这里的词汇， 每个词汇可能有多个含义，只选择一两个最常用的即可， 如果文档中有错误单词，纠正后再使用，故事要合乎常理，最好有趣一点。单词、短语等信息如下：" + words;
+        System.out.println(content);
+        System.out.println("--------------------------------------");
         Map<String, Object> result = new HashMap<>();
         result.put("role", "user");
-        result.put("content", "请用一下单词、短语等信息编写一个小故事，300字左右。要求：用英文编写，语句通顺， 语法准确，尽量少用不在这里的词汇， 每个词汇可能有多个含义，只选择一两个最常用的即可， 如果文档中有错误单词，纠正后再使用，故事要合乎常理，最好有趣一点。单词、短语等信息如下：" + words);
+        result.put("content", content);
         return result;
     }
 }
