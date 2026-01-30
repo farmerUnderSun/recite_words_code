@@ -117,13 +117,13 @@ public class Main {
                 System.err.println("请求异常: " + e.getMessage());
             }
         });
-//
-//        // 等待响应完成
-//        try {
-//            Thread.sleep(30000); // 根据实际情况调整
-//        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt();
-//        }
+
+        // 等待响应完成
+        try {
+            Thread.sleep(30000); // 根据实际情况调整
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private static void processStream(okio.BufferedSource source) throws IOException {
