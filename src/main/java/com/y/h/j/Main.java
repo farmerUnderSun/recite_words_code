@@ -172,7 +172,7 @@ public class Main {
     }
 
     private static Map<String, Object> equipRequestBodyMessage(String words) {
-        String content = "请用一下单词、短语等信息编写一个小故事，500字左右。要求：用英文编写，语句通顺， 语法准确，尽量少用不在这里的词汇， 每个词汇可能有多个含义，只选择一两个最常用的即可， 如果文档中有错误单词，纠正后再使用，故事要合乎常理，最好有趣一点。单词、短语等信息如下：" + words;
+        String content = "请用一下单词、短语等信息编写一个小故事，500字左右。要求：用英文编写，语句通顺， 语法准确，尽量少用不在这里的词汇， 每个词汇可能有多个含义，只选择一两个最常用的即可， 如果文档中有错误单词，纠正后再使用，故事要合乎常理，每个字都不用双星号加粗，最好有趣一点。单词、短语等信息如下：" + words;
         System.out.println(content);
         System.out.println("--------------------------------------");
         Map<String, Object> result = new HashMap<>();
