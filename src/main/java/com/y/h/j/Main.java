@@ -172,12 +172,26 @@ public class Main {
     }
 
     private static Map<String, Object> equipRequestBodyMessage(String words) {
-        String content = "请用一下单词、短语等信息编写一个小故事，500字左右。要求：用英文编写，语句通顺， 语法准确，尽量少用不在这里的词汇， 每个词汇可能有多个含义，只选择一两个最常用的即可， 如果文档中有错误单词，纠正后再使用，故事要合乎常理，每个字都不用双星号加粗，最好有趣一点。单词、短语等信息如下：" + words;
+        String content = equipContent(5, 300, words);
         System.out.println(content);
         System.out.println("--------------------------------------");
         Map<String, Object> result = new HashMap<>();
         result.put("role", "user");
         result.put("content", content);
         return result;
+    }
+
+    private static String equipContent(int storyAmount, int wordsAmountInOneStory, String words) {
+        int requirementNumber = 1;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("你是一个英文作家，我将给你提供一些单词或短语，请用这些单词或短语编写").append(storyAmount).append("个小故事，具体要求如下，请务必严格遵守。");
+        stringBuffer.append("我提供的单词如下【").append(words).append("】。");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("用英文编写");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每个故事的单词数量大约为").append(wordsAmountInOneStory).append("个;");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每个故事的题材都不一样;");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("在编写这几个故事的过程中，尽量包含我提供的所有单词或短语，但不要求每个故事都包含所有的单词或短语，只要这几个故事一共包含这些单词或短语即可;");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("严格遵守英语语法，多使用状语从句、主语从句、宾语从句、表语从句、同位语从句、定语从句等从句");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("故事情节合理，语句通顺");
+        return stringBuffer.toString();
     }
 }
