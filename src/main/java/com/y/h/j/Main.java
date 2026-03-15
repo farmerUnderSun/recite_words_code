@@ -186,14 +186,15 @@ public class Main {
     private static String equipContent(String words) {
         int requirementNumber = 1;
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("你是一个英文作家，我将给你提供一些单词或短语，请用这些单词或短语编写").append(STORY_COUNT).append("个小故事，具体要求如下，请务必严格遵守。");
+        stringBuffer.append("你是一个英文作家，我将给你提供一些单词或短语，请用这些单词或短语编写").append(STORY_COUNT).append("个议论文，具体要求如下，请务必严格遵守。");
         stringBuffer.append("我提供的单词如下【").append(words).append("】。");
         stringBuffer.append("要求").append(requirementNumber++).append(": ").append("用英文编写");
-        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每个故事的单词数量大约为").append(WORD_COUNT_IN_ONE_STORY).append("个;");
-        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每个故事的题材都不一样;");
-        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("在编写这几个故事的过程中，必须只使用我提供的单词，必要时可以使用额外的且简单的单词串联故事");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每篇文章的单词数量大约为").append(WORD_COUNT_IN_ONE_STORY).append("个;");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("每篇文章的题材都不一样;");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("在编写这几篇文章的过程中，必须只使用我提供的单词，必要时可以使用额外且简单的单词串联");
         stringBuffer.append("要求").append(requirementNumber++).append(": ").append("严格遵守英语语法，多使用状语从句、主语从句、宾语从句、表语从句、同位语从句、定语从句等从句");
-        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("故事情节合理，语句通顺");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("情节合理，语句通顺");
+        stringBuffer.append("要求").append(requirementNumber++).append(": ").append("选择当前 国际形势|中国新闻|美国新闻|中国民生|美国民生 作为题材");
         return stringBuffer.toString();
     }
 }
